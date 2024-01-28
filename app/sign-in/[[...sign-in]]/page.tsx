@@ -2,12 +2,20 @@
 
 import { useClerk, useSignIn, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function Page({
   searchParams,
@@ -17,6 +25,8 @@ export default function Page({
   const { isLoaded, signIn, setActive } = useSignIn();
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
   const { toast } = useToast();
   const { isSignedIn, user } = useUser();
@@ -49,40 +59,59 @@ export default function Page({
   };
   return (
     <>
-      <div className="w-full min-h-[700px]    mt-5 flex items-center justify-center">
-        <Card className="flex flex-col items-center min-w-[500px] ">
-          <CardHeader className="font-bold text-3xl text-primary">
-            SignIn
+      <div className="w-full h-screen flex justify-center items-center font-[sans-serif]">
+        <Card className="shadow-2xl sm:min-w-[400px]  m-2 px-3 py-3">
+          <CardHeader className="my-3">
+            <CardTitle className="font-semibold font-[sans-serif]">
+              Sign in
+            </CardTitle>
+            <CardDescription>
+              to continue to aasai-cashews-servcie
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="max-w-md flex flex-col gap-5 min-w-[500px] ">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="email">Username</Label>
+            <form className="space-y-2">
+              <div>
+                <Label htmlFor="email" className="text-sm">
+                  Email
+                </Label>
                 <Input
-                  onChange={(e) => setEmailAddress(e.target.value)}
-                  id="email"
+                  type="email"
                   name="email"
-                  type="text"
+                  id="email"
+                  onChange={(e) => setEmailAddress(e.target.value)}
                 />
               </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="password">Password</Label>
+              <div>
+                <Label htmlFor="password" className="text-sm">
+                  Password
+                </Label>
                 <Input
-                  onChange={(e) => setPassword(e.target.value)}
-                  id="password"
-                  name="password"
                   type="password"
+                  name="password"
+                  id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <Button
-                onClick={async (e) => {
-                  await handleSubmit(e);
-                  router.refresh();
-                }}
-              >
-                Sign In
-              </Button>
+              <div>
+                <Button
+                  className="min-w-full mt-2"
+                  onClick={async (e) => {
+                    await handleSubmit(e);
+                    router.refresh();
+                  }}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Signing in..." : "Sign in"}
+                </Button>
+              </div>
             </form>
+            <div className="my-5">
+              <Separator />
+            </div>
+            <p>
+              Don&apos;t have an account, <Link href={"/sign-up"}>Sign up</Link>{" "}
+            </p>
           </CardContent>
         </Card>
       </div>
