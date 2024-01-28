@@ -13,11 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { useToast } from "@/components/ui/use-toast";
+import { createProfile } from "@/action";
 
 export default function SignUpForm() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [emailAddress, setEmailAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
@@ -73,7 +73,18 @@ export default function SignUpForm() {
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
         console.log(completeSignUp);
-        router.push("/");
+        if (
+          completeSignUp?.emailAddress &&
+          completeSignUp?.createdUserId &&
+          completeSignUp?.username
+        ) {
+          await createProfile({
+            email: completeSignUp?.emailAddress,
+            userId: completeSignUp?.createdUserId,
+            username: completeSignUp?.username,
+          });
+          router.push("/");
+        }
       }
     } catch (err: any) {
       toast({

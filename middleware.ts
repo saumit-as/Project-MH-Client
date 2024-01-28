@@ -8,7 +8,10 @@ export default authMiddleware({
       return redirectToSignIn({ returnBackUrl: req.url });
     }
     // redirect them to organization selection page
-    if (auth.userId && req.nextUrl.pathname === "/sign-in") {
+    if (
+      auth.userId &&
+      ["/sign-in", "/sign-up"].includes(req.nextUrl.pathname)
+    ) {
       return NextResponse.redirect(
         req.nextUrl.searchParams.get("redirect_url") || req.nextUrl.origin
       );
