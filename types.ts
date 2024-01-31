@@ -1,3 +1,5 @@
+import { HTMLInputTypeAttribute } from "react";
+
 export interface User {
   username: string;
   key: string;
@@ -21,18 +23,32 @@ export interface Habit {
   date: string;
   duration: string;
   streak: number;
+  email: string;
+  lastCompleted: string;
 }
 
-export interface TaskSet {
+// export interface TaskSet {
+//   key: string;
+//   email: string;
+//   tasks: Tasks[];
+// }
+
+export interface Task {
   key: string;
   email: string;
-  tasks: Tasks[];
-}
-
-export interface Tasks {
-  key: string;
   name: string;
   urgency: "urgent" | "not urgent";
   priority: "important" | "not important";
   duration: string;
+  completed: boolean;
+  type: "task" | "habit";
 }
+export interface TaskWithoutKey extends Omit<Task, "key" | "completed"> {}
+
+export type FormProp = {
+  label: string;
+  name: keyof TaskWithoutKey;
+} & ({ type: "radio"; options: Record<string, string>[] } | { type: "text" });
+
+// type option = {};
+// type T2 = Extract<HTMLInputTypeAttribute, "text" | "radio">
