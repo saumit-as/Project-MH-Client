@@ -1,4 +1,5 @@
-import { AssessementQns, Habit, Task, TaskWithoutKey } from "./types";
+"use server";
+import { AssessementQns, Habit, Quote, Task, TaskWithoutKey } from "./types";
 
 export const createProfile = async ({
   email,
@@ -70,4 +71,20 @@ export const createHabit = async (habit: Omit<Habit, "key">) => {
   });
 
   return data;
+};
+
+export const getQuote = async (category: string) => {
+  const response = await fetch(
+    `https://api.api-ninjas.com/v1/quotes?category=${category}`,
+    {
+      method: "GET",
+      headers: { "X-Api-Key": `${process.env.QUOTES_API_KEY}` },
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch data");
+  }
+  const quoteData: Quote[] = await response.json();
+  console.log(quoteData);
+  return quoteData;
 };

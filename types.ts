@@ -66,3 +66,9 @@ export type AssessementQns = {
   options: string[];
   questions: string[];
 };
+
+export type Quote = {
+  quote: string;
+  author: string;
+  category: string;
+};
