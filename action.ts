@@ -81,10 +81,11 @@ export const getQuote = async (category: string) => {
       headers: { "X-Api-Key": `${process.env.QUOTES_API_KEY}` },
     }
   );
+
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
-  const quoteData: Quote[] = await response.json();
+  const quoteData = (await response.json()) as unknown as Quote[];
   console.log(quoteData);
   return quoteData;
 };
