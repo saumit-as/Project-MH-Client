@@ -1,6 +1,7 @@
 import { TaskView } from "@/components/TaskView";
 import { Task } from "@/types";
 import { currentUser } from "@clerk/nextjs";
+
 const getData = async (email: string) => {
   const tasks = await fetch(`${process.env.db}/tasks/get/${email}`);
   return (await tasks.json()) as unknown as Task[];

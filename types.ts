@@ -59,3 +59,10 @@ export type HabitFormProp = {
 };
 // type option = {};
 // type T2 = Extract<HTMLInputTypeAttribute, "text" | "radio">
+
+export type AssessementQns = {
+  category: string;
+  key: string;
+  options: string[];
+  questions: string[];
+};
