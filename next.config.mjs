@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV;
 
 const db =
   env === "production"
-    ? "https://backendgvstgs-1-u5913693.deta.app"
+    ? "https://serverfypmh-1-g9416771.deta.app"
     : "http://localhost:4201";
 
 const nextConfig = {

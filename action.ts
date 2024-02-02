@@ -34,6 +34,12 @@ export const createTask = async ({ task }: { task: TaskWithoutKey }) => {
   return data;
 };
 
+export const getAssessment = async () => {
+  const data = await fetch(`${process.env.db}/questions/anxiety`);
+  const res = await data.json();
+  console.log(res);
+};
+
 export const completeTask = async (task: Task) => {
   const data = await fetch(`${process.env.db}/tasks/complete`, {
     cache: "no-store",

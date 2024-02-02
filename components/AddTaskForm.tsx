@@ -13,7 +13,6 @@ import { createTask } from "@/action";
 export const AddTaskForm = ({ email }: { email: string }) => {
   const initialState: TaskWithoutKey = {
     email: email,
-
     duration: "",
     name: "",
     priority: "important",

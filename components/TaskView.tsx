@@ -18,7 +18,7 @@ export const TaskView = ({ tasks }: { tasks: Task[] }) => {
     <Card>
       <CardHeader>
         <div className="flex justify-between">
-          <p>Today's Tasks</p>
+          <p>Today&apos; Tasks</p>
           <div className="flex gap-4">
             <Button
               onClick={() => {
@@ -40,7 +40,7 @@ export const TaskView = ({ tasks }: { tasks: Task[] }) => {
       {tasks.length > 0 ? (
         <CardContent>
           <Accordion type="single" collapsible>
-            {tasks.map((task) => {
+            {tasks.map((task, index) => {
               return (
                 <AccordionItem key={task.key} value={task.key}>
                   <AccordionTrigger
