@@ -19,13 +19,16 @@ type AreaOfImprovements = "None" | "Anxiety" | "Depression" | "Addiction";
 
 export interface Habit {
   key: string;
-  name: string;
-  date: string;
-  duration: string;
   streak: number;
   email: string;
   lastCompleted: string;
+  name: string;
+  date: string;
+  duration: string;
 }
+
+export interface HabitForForm
+  extends Omit<Habit, "key" | "lastCompleted" | "streak" | "email"> {}
 
 // export interface TaskSet {
 //   key: string;
@@ -50,5 +53,9 @@ export type FormProp = {
   name: keyof TaskWithoutKey;
 } & ({ type: "radio"; options: Record<string, string>[] } | { type: "text" });
 
+export type HabitFormProp = {
+  label: string;
+  name: keyof HabitForForm;
+};
 // type option = {};
 // type T2 = Extract<HTMLInputTypeAttribute, "text" | "radio">

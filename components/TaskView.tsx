@@ -10,6 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { RefreshCw } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { completeTask, deleteTask } from "@/action";
 
 export const TaskView = ({ tasks }: { tasks: Task[] }) => {
   const router = useRouter();
@@ -26,7 +27,11 @@ export const TaskView = ({ tasks }: { tasks: Task[] }) => {
             >
               Add Task
             </Button>
-            <Button>
+            <Button
+              onClick={() => {
+                router.refresh();
+              }}
+            >
               <RefreshCw />
             </Button>
           </div>
@@ -37,10 +42,31 @@ export const TaskView = ({ tasks }: { tasks: Task[] }) => {
           <Accordion type="single" collapsible>
             {tasks.map((task) => {
               return (
-                <AccordionItem value={task.key}>
-                  <AccordionTrigger>{task.name}</AccordionTrigger>
-                  <AccordionContent>
-                    <Button>Hi bro</Button>
+                <AccordionItem key={task.key} value={task.key}>
+                  <AccordionTrigger
+                    className={task.completed ? "line-through	" : ""}
+                  >
+                    {task.name}
+                  </AccordionTrigger>
+                  <AccordionContent className="flex gap-2">
+                    <Button
+                      onClick={async () => {
+                        await completeTask(task);
+                        router.refresh();
+                      }}
+                      disabled={task.completed}
+                    >
+                      Complete Task
+                    </Button>
+                    <Button
+                      onClick={async () => {
+                        const data = await deleteTask(task.key);
+                        console.log(data);
+                        router.refresh();
+                      }}
+                    >
+                      Delete Task
+                    </Button>
                   </AccordionContent>
                 </AccordionItem>
               );

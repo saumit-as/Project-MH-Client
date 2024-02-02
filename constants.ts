@@ -1,4 +1,4 @@
-import { FormProp } from "./types";
+import { FormProp, HabitFormProp } from "./types";
 
 export const FormLabelArray: FormProp[] = [
   { label: "Name of the Task", name: "name", type: "text" },
@@ -15,4 +15,10 @@ export const FormLabelArray: FormProp[] = [
     type: "radio",
     options: [{ Important: "important" }, { "Not Important": "not important" }],
   },
+];
+
+export const habitFormLabel: HabitFormProp[] = [
+  { label: "Name", name: "name" },
+  { label: "Start Date", name: "date" },
+  { label: "Time Required", name: "duration" },
 ];
