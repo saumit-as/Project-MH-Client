@@ -14,9 +14,7 @@ const page = async () => {
 
   return (
     <div className="container">
-      <div className="flex justify-center mt-8">
-        <Quotes />
-      </div>
+      <div className="flex justify-center mt-8">{/* <Quotes /> */}</div>
       <section className="my-5 grid grid-cols-2 gap-5">
         <TaskView tasks={tasks} />
       </section>

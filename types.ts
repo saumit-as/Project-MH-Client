@@ -72,3 +72,8 @@ export type Quote = {
   author: string;
   category: string;
 };
+
+export interface DairyData {
+  key: String;
+  data: string;
+}

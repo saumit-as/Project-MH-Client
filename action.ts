@@ -1,5 +1,12 @@
 // "use server";
-import { AssessementQns, Habit, Quote, Task, TaskWithoutKey } from "./types";
+import {
+  AssessementQns,
+  DairyData,
+  Habit,
+  Quote,
+  Task,
+  TaskWithoutKey,
+} from "./types";
 
 export const createProfile = async ({
   email,
@@ -31,6 +38,8 @@ export const createTask = async ({ task }: { task: TaskWithoutKey }) => {
     },
     body: JSON.stringify(task),
   });
+
+  console.log(data);
 
   return data;
 };
@@ -86,6 +95,25 @@ export const getQuote = async (category: string) => {
     throw new Error("Failed to fetch data");
   }
   const quoteData = (await response.json()) as unknown as Quote[];
-  console.log(quoteData);
+
   return quoteData;
+};
+
+export const getDiaryData = async ({ key }: { key: string }) => {
+  console.log(key);
+  const tasks = await fetch(`${process.env.db}/diary/get/${key}`);
+  return (await tasks.json()) as unknown as DairyData;
+};
+
+export const saveDiaryData = async (diaryData: DairyData) => {
+  const data = await fetch(`${process.env.db}/diary/add`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(diaryData),
+  });
+
+  return data;
 };
