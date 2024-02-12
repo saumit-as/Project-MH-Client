@@ -18,7 +18,7 @@ export const TaskView = ({ tasks }: { tasks: Task[] }) => {
     <Card>
       <CardHeader>
         <div className="flex justify-between">
-          <p>Today&apos; Tasks</p>
+          <p className=" text-lg font-semibold">Today&apos; Tasks</p>
           <div className="flex gap-4">
             <Button
               onClick={() => {

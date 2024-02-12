@@ -23,7 +23,7 @@ export const UserButton = () => {
 
   if (isSignedIn) {
     return (
-      <Menubar>
+      <Menubar className="">
         <MenubarMenu>
           <MenubarTrigger>{user.username}</MenubarTrigger>
           <MenubarContent>

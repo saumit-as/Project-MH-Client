@@ -21,13 +21,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          <ClerkProvider>
-            <Header />
-            {children}
-            <Toaster />
-          </ClerkProvider>
-        </ThemeProvider>
+        <div className="bg-gray-200 h-full py-5">
+          <ThemeProvider>
+            <ClerkProvider>
+              <div className="">
+                <Header />
+              </div>
+              {children}
+              <Toaster />
+            </ClerkProvider>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );

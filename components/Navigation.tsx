@@ -14,19 +14,9 @@ const Navigation = ({ col = false }: { col?: boolean }) => {
           <span>Dashboard</span>
         </Button>
       </Link>
-      <Link href={"/add"}>
+      <Link href={"/diary"}>
         <Button variant={"link"}>
-          <span>Add Product</span>
-        </Button>
-      </Link>
-      <Link href={"/all"}>
-        <Button variant={"link"}>
-          <span>All Products</span>
-        </Button>
-      </Link>
-      <Link href={"/bill"}>
-        <Button variant={"link"}>
-          <span>Bill</span>
+          <span>Diary</span>
         </Button>
       </Link>
       <ThemeToggle />
