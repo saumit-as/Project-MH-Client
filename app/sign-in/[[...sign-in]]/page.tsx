@@ -50,6 +50,7 @@ export default function Page({
         /*Investigate why the login hasn't completed */
       }
     } catch (err: any) {
+      console.log(err.errors);
       toast({
         title: err.errors[0].longMessage,
         variant: "destructive",

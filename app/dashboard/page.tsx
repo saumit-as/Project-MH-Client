@@ -14,7 +14,7 @@ const page = async () => {
   const tasks = await getData(user?.emailAddresses[0].emailAddress || "");
 
   return (
-    <div className="container">
+    <div className="">
       <div className="flex justify-center">
         <Quotes />
       </div>

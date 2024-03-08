@@ -1,14 +1,17 @@
 import React from "react";
 import { Progress } from "./ui/progress";
+import Quotes from "./Quotes";
+import { User } from "@/types";
+import Link from "next/link";
 
-const OverviewContent = () => {
+const OverviewContent = ({ profile }: { profile: User }) => {
   return (
     <div className="bg-[#071224] px-5 py-5 text-white rounded-xl">
       <div>
         <p className="font-medium mb-4">Assessment Analysis</p>
       </div>
       <div className="flex space-x-4">
-        <div className="px-5 py-5 bg-[#e6eeff] text-gray-950 font-bold text-sm rounded-xl lg:w-[260px]">
+        <div className="px-5 py-5 bg-[#e6eeff] text-gray-950 font-bold text-sm rounded-xl lg:min-w-[260px]">
           <div className="flex justify-between items-center">
             <p>Anxiety</p>
             <div className="bg-[#071224] px-1 py-1 rounded-full">
@@ -25,16 +28,15 @@ const OverviewContent = () => {
               </svg>
             </div>
           </div>
-          <div className="text-xs font-normal">
-            <p>- Something</p>
-            <p>- Something something</p>
-          </div>
+
           <div className="mt-4">
-            <p className="text-lg text-right mb-2">87%</p>
-            <Progress value={87} />
+            <p className="text-lg text-right mb-2">
+              {profile.anxiety?.toFixed() ?? 0}%
+            </p>
+            <Progress value={profile.anxiety ?? 0} />
           </div>
         </div>
-        <div className="px-5 py-5 bg-[#ffefe7] text-gray-950 font-bold text-sm rounded-xl lg:w-[260px]">
+        <div className="px-5 py-5 bg-[#ffefe7] text-gray-950 font-bold text-sm rounded-xl lg:min-w-[260px]">
           <div className="flex justify-between items-center">
             <p>Depression</p>
             <div className="bg-[#071224] px-1 py-1 rounded-full">
@@ -51,16 +53,15 @@ const OverviewContent = () => {
               </svg>
             </div>
           </div>
-          <div className="text-xs font-normal">
-            <p>- Something</p>
-            <p>- Something something</p>
-          </div>
+
           <div className="mt-4">
-            <p className="text-lg text-right mb-2">48%</p>
-            <Progress value={48} />
+            <p className="text-lg text-right mb-2">
+              {profile.depression?.toFixed() ?? 0}%
+            </p>
+            <Progress value={profile.depression ?? 0} />
           </div>
         </div>
-        <div className="px-5 py-5 bg-[#d2d4ff] text-gray-950 font-bold text-sm rounded-xl lg:w-[260px]">
+        <div className="px-5 py-5 bg-[#d2d4ff] text-gray-950 font-bold text-sm rounded-xl lg:min-w-[260px]">
           <div className="flex justify-between items-center">
             <p>Addiction</p>
             <div className="bg-[#071224] px-1 py-1 rounded-full">
@@ -77,13 +78,23 @@ const OverviewContent = () => {
               </svg>
             </div>
           </div>
-          <div className="text-xs font-normal">
-            <p>- Something</p>
-            <p>- Something something</p>
-          </div>
+
           <div className="mt-4">
-            <p className="text-lg text-right mb-2">73%</p>
-            <Progress value={73} />
+            <p className="text-lg text-right mb-2">
+              {profile.gamingAddiction?.toFixed() ?? 0}%
+            </p>
+            <Progress value={profile.gamingAddiction ?? 0} />
+          </div>
+        </div>
+        <div className="px-5 py-5 bg-[#d2d4ff] text-gray-950 font-bold text-sm rounded-xl w-full">
+          <div className="flex justify-center items-center w-full h-full">
+            {/* <Quotes /> */}
+            <div className="flex items-center flex-col">
+              <Link href={"/assessment"}>
+                <span className="font-bold text-xl">Retake Assessment</span>
+              </Link>
+              <div>Track your progress by retaking the assesments</div>
+            </div>
           </div>
         </div>
       </div>

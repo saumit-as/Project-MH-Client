@@ -5,6 +5,9 @@ export interface User {
   key: string;
   userId: string;
   profileCompleted: boolean;
+  gamingAddiction: number;
+  anxiety: number;
+  depression: number;
   //   profileId: string;
 }
 
@@ -76,4 +79,5 @@ export type Quote = {
 export interface DairyData {
   key: String;
   data: string;
+  advice: string;
 }

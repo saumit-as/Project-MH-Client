@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const Header = () => {
   return (
-    <div className="container flex justify-between items-center bg-[#071224] text-foreground py-5 rounded-3xl">
+    <div className=" px-5 flex justify-between items-center bg-[#071224] text-foreground py-5 rounded-3xl">
       <Link href={"/"}>
         <h1 className="text-4xl text-orange-600 font-bold">MH</h1>
       </Link>

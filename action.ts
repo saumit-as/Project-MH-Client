@@ -1,4 +1,5 @@
 // "use server";
+import OpenAI from "openai";
 import {
   AssessementQns,
   DairyData,
@@ -84,7 +85,7 @@ export const createHabit = async (habit: Omit<Habit, "key">) => {
 
 export const getQuote = async (category: string) => {
   const response = await fetch(
-    `https://api.api-ninjas.com/v1/quotes?category=${category}`,
+    `https://api.api-ninjas.com/v1/quotes?=${category}`,
     {
       method: "GET",
       headers: { "X-Api-Key": `${process.env.QUOTES_API_KEY}` },
@@ -116,4 +117,59 @@ export const saveDiaryData = async (diaryData: DairyData) => {
   });
 
   return data;
+};
+
+export const getEmotion = async (diaryData: string) => {
+  console.log(diaryData);
+  const data = fetch(`${process.env.db}/emotion`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(diaryData),
+  });
+  return (await data).json();
+};
+
+export const getAdvice = async (promt: string) => {
+  console.log("gpt hit");
+  const openai = new OpenAI({
+    apiKey: "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",
+    dangerouslyAllowBrowser: true,
+  });
+  const res = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        content: `The following is my diary entry of today. please read the contents and tell me ways to improve my life as a friend is telling to me. Also don't complete the sentences just give advice. Don't give in points just give me in paragraphs. Keep the advice in 5 lines. ${promt}`,
+        role: "user",
+      },
+    ],
+    temperature: 0.7,
+    stream: false,
+  });
+
+  return res.choices[0].message.content as string;
+};
+
+export const setScore = async ({
+  category,
+  score,
+  email,
+}: {
+  category: string;
+  score: number;
+  email: string;
+}) => {
+  const data = fetch(`${process.env.db}/user/setScore`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ category, score, email }),
+  });
+
+  return true;
 };

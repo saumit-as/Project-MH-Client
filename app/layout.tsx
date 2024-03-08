@@ -24,10 +24,10 @@ export default function RootLayout({
         <div className="bg-gray-200 h-full py-5">
           <ThemeProvider>
             <ClerkProvider>
-              <div className="">
+              <div className="container">
                 <Header />
+                {children}
               </div>
-              {children}
               <Toaster />
             </ClerkProvider>
           </ThemeProvider>

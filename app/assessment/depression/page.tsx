@@ -1,5 +1,6 @@
 import QuestionTemplate from "@/components/QuestionTemplate";
 import { AssessementQns } from "@/types";
+import { currentUser } from "@clerk/nextjs";
 
 async function getData() {
   const res = await fetch(`${process.env.db}/questions/depression`);
@@ -11,11 +12,16 @@ async function getData() {
 
 const DepressionAssessment = async () => {
   const assessmentData: AssessementQns = await getData();
-  console.log(assessmentData);
 
+  const user = await currentUser();
   return (
     <div className="mt-8 flex justify-center">
-      {assessmentData && <QuestionTemplate assessmentData={assessmentData} />}
+      {assessmentData && (
+        <QuestionTemplate
+          email={user?.emailAddresses[0].emailAddress || ""}
+          assessmentData={assessmentData}
+        />
+      )}
     </div>
   );
 };

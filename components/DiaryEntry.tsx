@@ -32,7 +32,7 @@ export const DiaryEntry = forwardRef<MDXEditorMethods, { something: string }>(
     return (
       <ForwardRefEditor
         ref={ref}
-        className="bg-primary text-blue-100"
+        className="underline text-blue-100"
         contentEditableClassName="prose prose-slate"
         markdown={markDownText}
         onChange={(e) => {

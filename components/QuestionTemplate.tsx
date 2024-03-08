@@ -8,11 +8,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import { Button } from "./ui/button";
+import { setScore } from "@/action";
 
 const QuestionTemplate = ({
   assessmentData,
+  email,
 }: {
   assessmentData: AssessementQns;
+  email: string;
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<number[]>(
     Array(assessmentData.questions.length).fill(0)
@@ -22,9 +26,10 @@ const QuestionTemplate = ({
     const newSelectedOptions = [...selectedOptions];
     newSelectedOptions[questionIndex] = optionIndex + 1;
     setSelectedOptions(newSelectedOptions);
+    setRevealScore(false);
   };
 
-  const calculateTotalMarks = (): number => {
+  const calculateTotalMarks = () => {
     const totalScore = selectedOptions.reduce(
       (total, optionIndex) => total + optionIndex,
       0
@@ -32,8 +37,11 @@ const QuestionTemplate = ({
     const maxPossibleScore =
       assessmentData.options.length * assessmentData.questions.length;
     const percentageScore = (totalScore / maxPossibleScore) * 100;
+
     return percentageScore;
   };
+
+  const [revealScore, setRevealScore] = useState(false);
 
   return (
     <div className="flex justify-center border h-[500px] py-8 rounded-lg sm:w-[1200px]">
@@ -91,11 +99,26 @@ const QuestionTemplate = ({
                   </CarouselItem>
                 ))}
                 <CarouselItem>
-                  <p className="text-center">
-                    Level of {assessmentData.category} you have {"->"}{" "}
-                    {calculateTotalMarks()}
-                    {"%"}
-                  </p>
+                  {revealScore ? (
+                    <p className="text-center">
+                      Level of {assessmentData.category} you have {"->"}{" "}
+                      {calculateTotalMarks()}
+                      {"%"}
+                    </p>
+                  ) : (
+                    <Button
+                      onClick={async () => {
+                        setRevealScore(true);
+                        await setScore({
+                          category: assessmentData.category,
+                          score: calculateTotalMarks(),
+                          email: email,
+                        });
+                      }}
+                    >
+                      Reveal Score
+                    </Button>
+                  )}
                 </CarouselItem>
               </CarouselContent>
               <CarouselPrevious />
