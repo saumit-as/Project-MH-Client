@@ -120,7 +120,6 @@ export const saveDiaryData = async (diaryData: DairyData) => {
 };
 
 export const getEmotion = async (diaryData: string) => {
-  console.log(diaryData);
   const data = fetch(`${process.env.db}/emotion`, {
     cache: "no-store",
     method: "POST",
@@ -133,7 +132,6 @@ export const getEmotion = async (diaryData: string) => {
 };
 
 export const getAdvice = async (promt: string) => {
-  console.log("gpt hit");
   const openai = new OpenAI({
     apiKey: "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",
     dangerouslyAllowBrowser: true,

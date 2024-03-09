@@ -1,5 +1,5 @@
 "use client";
-import { getAdvice, getDiaryData, getEmotion, saveDiaryData } from "@/action";
+import { getDiaryData, saveDiaryData } from "@/action";
 import { DiaryEntry } from "@/components/DiaryEntry";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -10,12 +10,11 @@ import {
 } from "@/components/ui/resizable";
 import { DairyData } from "@/types";
 import { MDXEditorMethods } from "@mdxeditor/editor";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import markdownToTxt from "markdown-to-txt";
-import { Chat } from "../chat";
-import { nanoid } from "@/lib/utils";
-import { useChat } from "ai/react";
+
 import { ScrollArea } from "../ui/scroll-area";
+import OpenAI from "openai";
 export const DiaryWrapper = ({
   email,
   initialDate,
@@ -28,6 +27,33 @@ export const DiaryWrapper = ({
   const props = { something: initialDate.data };
   const [advice, setAdvice] = useState(initialDate.advice ?? "");
   const [loading, setLoading] = useState(false);
+
+  const getAdvice = async (promt: string) => {
+    const openai = new OpenAI({
+      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+      dangerouslyAllowBrowser: true,
+    });
+    const res = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          content: `The following is my diary entry of today. please read the contents and tell me ways to improve my life as a friend is telling to me. Also don't complete the sentences just give advice. Don't give in points just give me in paragraphs. Keep the advice in 5 lines. ${promt}`,
+          role: "user",
+        },
+      ],
+      temperature: 0.7,
+      stream: true,
+    });
+
+    let txt = "";
+    for await (const chunk of res) {
+      txt += chunk.choices[0].delta.content ?? "";
+      setLoading(false);
+      setAdvice(txt); // Process and accumulate data from the stream
+    }
+
+    return txt;
+  };
 
   return (
     <div className="bg-background mt-5 text-black  rounded-xl border-8">
@@ -81,13 +107,14 @@ export const DiaryWrapper = ({
                   setLoading(true);
                   const data = markdownToTxt(ref.current?.getMarkdown() || "");
                   const gpt = !advice ? await getAdvice(data) : advice;
+                  // getAdvice(data);
                   const diaryData: DairyData = {
                     key: email + new Date(date || new Date()).toDateString(),
                     data: ref.current?.getMarkdown() || "",
                     advice: gpt ?? "",
                   };
                   await saveDiaryData(diaryData);
-                  if (gpt) setAdvice(gpt);
+
                   setLoading(false);
                 }}
               >

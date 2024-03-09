@@ -9,7 +9,6 @@ const Diary = async () => {
       (user?.emailAddresses[0].emailAddress || "") + new Date().toDateString(),
   });
 
-  console.log(initialDate);
   return (
     <DiaryWrapper
       email={user?.emailAddresses[0].emailAddress || ""}

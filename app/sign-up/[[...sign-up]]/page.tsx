@@ -41,10 +41,8 @@ export default function SignUpForm() {
       });
 
       // send the email.
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
 
       // change the UI to our pending section.
-      setPendingVerification(true);
     } catch (err: any) {
       toast({
         title: "Error",
@@ -83,7 +81,6 @@ export default function SignUpForm() {
             userId: completeSignUp?.createdUserId,
             username: completeSignUp?.username,
           });
-          router.push("/");
         }
       }
     } catch (err: any) {
