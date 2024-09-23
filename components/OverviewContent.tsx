@@ -31,9 +31,9 @@ const OverviewContent = ({ profile }: { profile: User }) => {
 
           <div className="mt-4">
             <p className="text-lg text-right mb-2">
-              {profile.anxiety?.toFixed() ?? 0}%
+              {profile?.anxiety?.toFixed() ?? 0}%
             </p>
-            <Progress value={profile.anxiety ?? 0} />
+            <Progress value={profile?.anxiety ?? 0} />
           </div>
         </div>
         <div className="px-5 py-5 bg-[#ffefe7] text-gray-950 font-bold text-sm rounded-xl lg:min-w-[260px]">
@@ -56,9 +56,9 @@ const OverviewContent = ({ profile }: { profile: User }) => {
 
           <div className="mt-4">
             <p className="text-lg text-right mb-2">
-              {profile.depression?.toFixed() ?? 0}%
+              {profile?.depression?.toFixed() ?? 0}%
             </p>
-            <Progress value={profile.depression ?? 0} />
+            <Progress value={profile?.depression ?? 0} />
           </div>
         </div>
         <div className="px-5 py-5 bg-[#d2d4ff] text-gray-950 font-bold text-sm rounded-xl lg:min-w-[260px]">
@@ -81,9 +81,9 @@ const OverviewContent = ({ profile }: { profile: User }) => {
 
           <div className="mt-4">
             <p className="text-lg text-right mb-2">
-              {profile.gamingAddiction?.toFixed() ?? 0}%
+              {profile?.gamingAddiction?.toFixed() ?? 0}%
             </p>
-            <Progress value={profile.gamingAddiction ?? 0} />
+            <Progress value={profile?.gamingAddiction ?? 0} />
           </div>
         </div>
         <div className="px-5 py-5 bg-[#d2d4ff] text-gray-950 font-bold text-sm rounded-xl w-full">

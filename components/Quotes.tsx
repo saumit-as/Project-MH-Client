@@ -4,26 +4,6 @@ import QuoteIcon from "./QuoteIcon";
 import { getQuote } from "@/action";
 import { Card, CardContent } from "./ui/card";
 
-// async function getData() {
-//   const category = "happiness";
-//   try {
-//     const response = await fetch(
-//       `https://api.api-ninjas.com/v1/quotes?category=${category}`,
-//       {
-//         method: "GET",
-//         headers: { "X-Api-Key": `${process.env.QUOTES_API_KEY}` },
-//       }
-//     );
-//     console.log(await response.json());
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch data");
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 const Quotes = async () => {
   const quote: Quote[] = await getQuote("happiness");
   return (
